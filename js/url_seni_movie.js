@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage03.html",
 
-            //"./signage04_benkyokai.html",
+            "./signage05_nisc.html",
 
             "./signage_youtube.html",
 			
