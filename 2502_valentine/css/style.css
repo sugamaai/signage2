@@ -1,0 +1,150 @@
+@charset "UTF-8";
+html,
+body {
+  font-family: "Montserrat", "Noto Sans JP", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", メイリオ, Meiryo, sans-serif;
+  position: relative;
+  background-color: #ffe1dc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100% !important;
+}
+
+/* END 共通CSSからの調整 */
+body {
+  background-color: #ffe1dc;
+}
+
+main {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 750px;
+  background-color: #ecbcb1;
+  width: 100%;
+  max-width: 750px;
+  background-size: contain;
+}
+main > * {
+  text-align: center;
+}
+
+h2 {
+  width: 90%;
+  margin: 50px auto 0;
+}
+
+/* リストの横並び２列 */
+ul {
+  list-style: none;
+  /* リストスタイルを無効化 */
+  padding: 0 3%;
+  margin: 0;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  /* アイテムを複数行に折り返す */
+  justify-content: space-around;
+  counter-reset: item;
+  /* リストのカウンターを初期化 */
+}
+
+li {
+  flex: 0 1 calc(20% - 20px);
+  margin-bottom: 10px;
+  /* 下部にスペースを追加 */
+  box-sizing: border-box;
+  /* パディングとボーダーを含めてサイズを計算 */
+  position: relative;
+  counter-increment: item;
+  /* 各 li 要素ごとにカウンターをインクリメント */
+  list-style: none;
+  /* デフォルトのリストマーカーを非表示 */
+}
+li::before {
+  content: counter(item);
+  font-size: 300%;
+  font-weight: bold;
+  position: absolute;
+  top: -40px; /* 位置を微調整 */
+  left: -20px; /* 位置を微調整 */
+  width: 80px;
+  height: 80px;
+  background: url("../img/icon_number.png") no-repeat;
+  background-size: contain;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  padding-top: 5%;
+  font-size: 200%;
+  width: 50px;
+  height: 50px;
+  top: -20px;
+  left: -20px;
+  padding-top: 2%;
+}
+
+img {
+  width: 100%;
+  /* 画像が親要素にフィットするように設定 */
+}
+
+a.dl_btn {
+  background: url("../img/dl_btn.png") no-repeat center top;
+  background-size: contain;
+  width: 100%;
+  max-width: 300px;
+  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  display: inline-block;
+  transition: 0.3s ease;
+  height: 50px;
+  margin-bottom: 30px;
+  /* 事前にホバー時の画像を読み込む */
+}
+a.dl_btn:hover {
+  background: url("../img/dl_btn_hover.png") no-repeat center top;
+  background-size: contain;
+  opacity: 100%;
+}
+a.dl_btn:before {
+  content: "";
+  background: url("../img/dl_btn_hover.png") no-repeat center top;
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.footer {
+  padding-bottom: 0;
+}
+
+#imageList li {
+  margin-bottom: 10%;
+  position: relative;
+}
+#imageList li a:hover, #imageList li a img:hover {
+  opacity: 1 !important;
+}
+#imageList li img.QR {
+  position: absolute;
+  width: 45%;
+  bottom: -3%;
+  right: -5%;
+}
+
+#imageList li:nth-child(11), #imageList li:nth-child(12), #imageList li:nth-child(13), #imageList li:nth-child(14) {
+  display: none;
+}
+
+main {
+  max-width: inherit;
+}/*# sourceMappingURL=style.css.map */

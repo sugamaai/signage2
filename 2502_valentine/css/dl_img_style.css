@@ -1,0 +1,18 @@
+
+        p {
+            background: #ffffffb8;
+            position: fixed;
+            top: 10%;
+            width: 70%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            margin: o auto;
+            display: block;
+        }
+

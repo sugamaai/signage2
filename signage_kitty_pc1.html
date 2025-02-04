@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像を添付したメールを作成</title>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NHT5RG37');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHT5RG37" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <!-- メールを送るボタン -->
+    <button id="emailButton">メールで画像を送る</button>
+
+
+    <!-- 画像の表示 -->
+    <img id="image" src="img/kitty/kabegami_1.jpg" alt="送信したい画像" width="100%">
+
+    <br><br>
+
+
+    <script>
+        document.getElementById('emailButton').addEventListener('click', function () {
+            // 送信先アドレス
+            const email = "宛先を入力してください";
+            // メール件名
+            const subject = "壁紙用画像の送信";
+            // メール本文（画像リンクを含む）
+            const body = "以下のリンクの画像を送ります。\n\n" + document.getElementById('image').src;
+
+            // mailtoリンクを作成してメールクライアントを起動
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+    </script>
+    <style>
+        button {
+            margin: 5% auto;
+            margin-left: 5%;
+        }
+    </style>
+</body>
+
+</html>
