@@ -45,41 +45,7 @@
     }
   </style>
 
-  <script>
-    // 配列をランダムにシャッフルする関数
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    // リストアイテムをランダムな順番で表示する関数
-    function randomizeList() {
-      const ul = document.getElementById('imageList');
-      const items = Array.from(ul.children); // 現在の<li>要素を配列に変換
-      const shuffledItems = shuffle(items); // シャッフル
-
-      ul.innerHTML = ''; // 現在のリストをクリア
-      shuffledItems.forEach(item => {
-        ul.appendChild(item); // ランダムな順番で再配置
-      });
-
-      // リストの表示を有効にする
-      ul.style.visibility = 'visible';
-    }
-
-    // ページ読み込み時にランダム化関数を実行
-    window.onload = randomizeList;
-
-
-
-  </script>
-
-
-
-
+ 
 
 </body>
 
