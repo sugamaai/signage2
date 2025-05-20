@@ -22,6 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			
 			"./signage_youtube01.html",
 
+            "./signage10_cinema.html",
+
+            "./signage11_kishiberohan.html",
+
         ];
 
 
