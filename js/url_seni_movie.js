@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var mylink = [
 
-            // "./index.html",
+            "./index.html",
 
             "./signage02.html",
 
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			
 			"./signage_youtube01.html",
 
-            "./signage10_cinema.html",
+            // "./signage11_kishiberohan.html",
 
             
 
