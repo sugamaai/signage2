@@ -8,13 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var mylink = [
 
-            "./index.html",
+            // "./index.html",
 
             "./signage02.html",
 
             "./signage03.html",
-
-            // "./signage09_benkyokai.html",
 
             "./signage_youtube.html",
 			
@@ -22,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage10_cinema.html",
 
-            "./signage11_kishiberohan.html",
+            
 
         ];
 
