@@ -18,12 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			
 			"./signage_youtube01.html",
 
-            
-            
-
-            "./signage16_id.html", // 8/31まで
-
-            "./signage17_nonde.html", // 9/3まで
+            "./signage19_aki.html", // 11/30まで
 
            
 
