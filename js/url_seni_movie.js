@@ -18,9 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
 			
 			"./signage_youtube01.html",
 
-            "./signage19_aki.html", // 11/30まで
+            "./signage19_aki.html", // 10/31まで
 
             "./signage20_digitalreceipt.html", // 9/30まで
+
+            "./signage21_iaeon4th.html", // 11/30まで
 
            
 
