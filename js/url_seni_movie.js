@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var mylink = [
 
-            "./index.html", // 9/30まで
+            "./index.html", // 26/2/28まで
 
             "./signage02.html",
 
@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			"./signage_youtube01.html",
 
             "./signage19_aki.html", // 11/30まで
+
+            "./signage20_digitalreceipt.html", // 9/30まで
 
            
 
