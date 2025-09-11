@@ -4,8 +4,8 @@
     "theme_color": "#b60081",
     "background_color": "#bf3597",
     "display": "standalone",
-    "scope": "/",
-    "start_url": "/index.html",
+    "scope": "/signage2/",
+    "start_url": "/signage2/index.html",
     "icons": [
         {
             "src": "icon/192.png",
