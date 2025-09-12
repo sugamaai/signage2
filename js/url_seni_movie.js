@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage21_iaeon4th.html", // 11/30まで
 
-           
+            "./signage22_lab.html", // 10/29まで
 
 
 
