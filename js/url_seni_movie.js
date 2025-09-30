@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage22_lab.html", // 10/29まで
 
-
+            "./signage23_benkyokai.html", // 10/15まで
 
         ];
 
