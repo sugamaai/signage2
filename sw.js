@@ -1,12 +1,11 @@
 self.addEventListener("install", (event) => {
-    console.log("Service Worker: Installed");
+    console.log("SW installed");
 });
 
 self.addEventListener("activate", (event) => {
-    console.log("Service Worker: Activated");
+    console.log("SW activated");
 });
 
-// ネットワークから取得（キャッシュ処理はなし）
 self.addEventListener("fetch", (event) => {
     event.respondWith(fetch(event.request));
 });
