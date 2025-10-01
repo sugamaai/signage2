@@ -20,13 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage19_aki.html", // 10/31まで
 
-            "./signage20_digitalreceipt.html", // 9/30まで
-
             "./signage21_iaeon4th.html", // 11/30まで
 
             "./signage22_lab.html", // 10/29まで
 
             "./signage23_benkyokai.html", // 10/15まで
+
+            "./signage24_Suntory.html", // 11/26まで
+
+            "./signage25_tokachi.html", // 10/22まで
+
+            "./signage26_ajinomoto.html", // 10/29まで
 
         ];
 
