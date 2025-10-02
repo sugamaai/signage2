@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像保存ページ</title>
+
+    <link rel='stylesheet' href='css/reset.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='css/dl_img_style.css' type='text/css' media='all' />
+</head>
+
+<body>
+
+
+
+    <img id="image" src="" alt="保存したい画像">
+
+    <br><br>
+
+    <!-- 保存するボタン -->
+    <p>画像を長押しして、”写真”に保存して壁紙に設定してください</p>
+
+    <script>
+        // 現在のHTMLファイル名を取得
+        const fileName = window.location.pathname.split('/').pop();
+
+        // ファイル名の数字部分を取得 (kitty_dl_bg_img4.html -> 4)
+        const match = fileName.match(/\d+/); // 数字の部分を抽出
+        const number = match ? match[0] : '1'; // マッチした数字があれば取得、なければ '1'
+
+        // 画像のsrc属性を動的に変更
+        const img = document.getElementById('image');
+        img.src = `img/dl_bg_img${number}@3x.png`;
+    </script>
+
+
+</body>
+
+</html>
