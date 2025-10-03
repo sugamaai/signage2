@@ -3,7 +3,7 @@
     "short_name": "イオンスマートテクノロジーv2",
     "theme_color": "#b60081",
     "background_color": "#bf3597",
-    "display": "standalone",
+    "display": "browser",
     "scope": "/",
     "start_url": "/",
     "icons": [
