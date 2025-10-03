@@ -1,18 +1,23 @@
 self.addEventListener("install", function (event) {
     console.log("SW installed");
-    self.skipWaiting(); // すぐに有効化
+    // offline.html をキャッシュ
+    event.waitUntil(
+        caches.open("v1").then(function (cache) {
+            return cache.addAll(["/offline.html"]);
+        })
+    );
 });
 
 self.addEventListener("activate", function (event) {
     console.log("SW activated");
-    event.waitUntil(self.clients.claim()); // 全ページに即反映
+    event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener("fetch", function (event) {
     event.respondWith(
         fetch(event.request).catch(function () {
-            // ネットワークエラー時に落ちないようにする
-            return Response.error();
+            // ネットがなければ offline.html を返す
+            return caches.match("/offline.html");
         })
     );
 });
