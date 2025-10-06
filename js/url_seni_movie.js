@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "./signage03.html",
 
             "./signage_youtube.html",
-			
-			"./signage_youtube01.html",
+
+            "./signage_youtube01.html",
 
             "./signage19_aki.html", // 10/31まで
 
@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage26_ajinomoto.html", // 10/29まで
 
+            "./mvvlogo.html",
+
         ];
 
 
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 遷移を実行するには下記のコードを有効にする
 
-         window.location.href = mylink[Math.floor(Math.random() * mylink.length)];
+        window.location.href = mylink[Math.floor(Math.random() * mylink.length)];
 
     }
 
