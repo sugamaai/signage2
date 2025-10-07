@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オフライン</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="icon">📡</div>
+    <h1>オフラインです</h1>
+    <p>ネットワークに接続されていません。<br>
+        接続を確認してから再読み込みしてください。</p>
+    <button onclick="location.reload()">再読み込み</button>
+</body>
+
+</html>
