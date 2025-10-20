@@ -18,17 +18,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage_youtube01.html",
 
-            "./signage19_aki.html", // 10/31まで
-
-            "./signage21_iaeon4th.html", // 11/30まで
+            "./signage25_tokachi.html", // 10/22まで
 
             "./signage22_lab.html", // 10/29まで
 
+            "./signage26_ajinomoto.html", // 10/29まで
+
+            "./signage19_aki.html", // 10/31まで
+
             "./signage24_Suntory.html", // 11/26まで
 
-            "./signage25_tokachi.html", // 10/22まで
-
-            "./signage26_ajinomoto.html", // 10/29まで
+            "./signage21_iaeon4th.html", // 11/30まで
 
             "./mvvlogo.html",
 
