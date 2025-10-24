@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./mvvlogo.html",
 
+            "./index_blackfriday.html", // 壁紙ページ（11月いっぱい）
+
         ];
 
 
