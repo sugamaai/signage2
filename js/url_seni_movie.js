@@ -18,11 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage_youtube01.html",
 
-            "./signage25_tokachi.html", // 10/22まで
-
-            "./signage22_lab.html", // 10/29まで
-
-            "./signage26_ajinomoto.html", // 10/29まで
+            "./mvvlogo.html",
 
             "./signage19_aki.html", // 10/31まで
 
@@ -30,7 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage21_iaeon4th.html", // 11/30まで
 
-            "./mvvlogo.html",
+            "./signage27_sumikko.html", // 11/30まで
+
+            "./signage28_blackfriday.html", // 11/30まで
 
             "./index_blackfriday.html", // 壁紙ページ（11月いっぱい）
 
