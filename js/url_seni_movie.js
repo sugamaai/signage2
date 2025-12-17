@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage35_nonde.html", // 2026/1/21まで
 
+            "./signage36_benkyokai.html", // 2026/1/15まで
+
         ];
 
 
