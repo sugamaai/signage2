@@ -20,17 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./mvvlogo.html",
 
-            "./signage32_maru.html", // 2026/1/7まで
+            "./signage37_lotte.html", // 2026/2/25まで
 
-            "./signage33_nabe.html", // 2026/1/7まで
+            "./signage38_kagome.html", // 2026/3/4まで
 
-            "./signage34_savas.html", // 2026/1/14まで
+            "./signage39_nisshin.html", // 2026/3/11まで
 
-            "./signage31_benkyokai.html", // 2026/1/21まで
-
-            "./signage35_nonde.html", // 2026/1/21まで
-
-            "./signage36_benkyokai.html", // 2026/1/15まで
+            
 
         ];
 
