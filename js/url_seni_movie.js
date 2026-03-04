@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var mylink = [
 
-            "./index.html", // 26/2/28まで
+            "./index.html", 
 
             "./signage02.html",
 
@@ -20,13 +20,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./mvvlogo.html",
 
-            "./signage37_lotte.html", // 2026/2/25まで
-
-            "./signage38_kagome.html", // 2026/3/4まで
-
             "./signage39_nisshin.html", // 2026/3/11まで
 
             "./signage40_cybersecurity.html", // 2026/3/18まで
+
+            "./signage41_kirin.html", // 2026/3/25まで
+
+            "./signage42_meijir1.html", // 2026/3/25まで
+
+            "./signage43_fujiya.html", // 2026/4/8まで
 
             
 
