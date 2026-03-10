@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage40_cybersecurity.html", // 2026/3/18まで
 
+            "./signage44_benkyokai.html", // 2026/3/18まで
+
             "./signage41_kirin.html", // 2026/3/25まで
 
             "./signage42_meijir1.html", // 2026/3/25まで
