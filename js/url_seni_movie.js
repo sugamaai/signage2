@@ -20,11 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./mvvlogo.html",
 
-            "./signage41_kirin.html", // 2026/3/25まで
-
-            "./signage42_meijir1.html", // 2026/3/25まで
-
             "./signage43_fujiya.html", // 2026/4/8まで
+
+            "./signage45_benkyokai.html", // 2026/4/15まで
 
             
 
