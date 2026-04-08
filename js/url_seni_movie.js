@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage_youtube01.html",
 
+            "./signage_202604renewal.html", // 2026年8月リニューアルまで
+
             "./mvvlogo.html",
 
             "./signage43_fujiya.html", // 2026/4/8まで
