@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             "./signage45_benkyokai.html", // 2026/4/15まで
 
+            "./signage46_degi_talk.html", // 2026/6/8まで
+
             
 
         ];
