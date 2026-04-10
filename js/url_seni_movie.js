@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var mylink = [
         "./index.html",
         "./signage02.html",
-        "./signage03.html",
-        "./signage_youtube.html",
-        "./signage_youtube01.html",
+        "./signage_youtube02.html",  // 2026年8月リニューアルまで
+        "./signage_youtube03.html",  // アオハル祭 6月30日まで
         "./signage_202604renewal.html", // 2026年8月リニューアルまで
         "./mvvlogo.html",
         "./signage45_benkyokai.html",   // 2026/4/15まで
