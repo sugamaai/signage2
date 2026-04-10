@@ -1,69 +1,61 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("ページが読み込まれました。JavaScriptが動作しています。"); // デバッグ用
+    var mylink = [
+        "./index.html",
+        "./signage02.html",
+        "./signage03.html",
+        "./signage_youtube.html",
+        "./signage_youtube01.html",
+        "./signage_202604renewal.html", // 2026年8月リニューアルまで
+        "./mvvlogo.html",
+        "./signage45_benkyokai.html",   // 2026/4/15まで
+        "./signage46_degi_talk.html"    // 2026/6/8まで
+    ];
 
+    console.log("====================================");
+    console.log("ページ読込完了");
+    console.log("現在のURL:", location.href);
+    console.log("表示対象URL一覧");
+    console.log("====================================");
 
+    mylink.forEach(function (path, index) {
+        var fullUrl = new URL(path, location.href).href;
+        console.log((index + 1) + ".", fullUrl);
+    });
+
+    console.log("====================================");
+    console.log("自動遷移タイマーを開始します");
+    console.log("====================================");
 
     function timerFunc() {
+        var randomIndex = Math.floor(Math.random() * mylink.length);
+        var selectedPath = mylink[randomIndex];
+        var fullUrl = new URL(selectedPath, location.href).href;
 
-        var mylink = [
+        console.log("====================================");
+        console.log("自動遷移を実行します");
+        console.log("選択番号:", randomIndex + 1);
+        console.log("遷移先フルURL:", fullUrl);
+        console.log("====================================");
 
-            "./index.html", 
-
-            "./signage02.html",
-
-            "./signage03.html",
-
-            "./signage_youtube.html",
-
-            "./signage_youtube01.html",
-
-            "./signage_202604renewal.html", // 2026年8月リニューアルまで
-
-            "./mvvlogo.html",
-
-            "./signage45_benkyokai.html", // 2026/4/15まで
-
-            "./signage46_degi_talk.html", // 2026/6/8まで
-
-            
-
-        ];
-
-
-
-        console.log("指定したページへの遷移が開始されます"); // デバッグ用
-
-        // 遷移を実行するには下記のコードを有効にする
-
-        window.location.href = mylink[Math.floor(Math.random() * mylink.length)];
-
+        window.location.href = fullUrl;
     }
 
+    var timeLimit = 30 * 1000;
+    var timerId = setTimeout(timerFunc, timeLimit);
 
-
-    var timeLimit = 30 * 1000; // 制限時間
-
-    var timerId = setTimeout(timerFunc, timeLimit); // 初回のタイマーをセット
-
-    console.log("タイマーが設定されました"); // デバッグ用
-
-
+    console.log("タイマー設定:", timeLimit / 1000 + "秒後に自動遷移");
 
     function cancelAutoRedirect() {
+        clearTimeout(timerId);
 
-        clearTimeout(timerId); // タイマーをクリア（キャンセル）
-
-        console.log("タッチされたので遷移をキャンセルします"); // デバッグ用
-
+        console.log("====================================");
+        console.log("ユーザー操作を検知しました");
+        console.log("自動遷移をキャンセルしました");
+        console.log("操作時のURL:", location.href);
+        console.log("====================================");
     }
 
-
-
-    // タッチイベントを監視して遷移をキャンセル
-
-    document.addEventListener("click", cancelAutoRedirect);
-
-    document.addEventListener("touchstart", cancelAutoRedirect);
-
+    document.addEventListener("click", cancelAutoRedirect, { once: true });
+    document.addEventListener("touchstart", cancelAutoRedirect, { once: true });
 });
