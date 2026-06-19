@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "./signage_youtube02.html",  // 2026年8月リニューアルまで
         "./signage_youtube03.html",  // アオハル祭 2026年6月30日まで
         "./signage_202604renewal.html", // 2026年8月リニューアルまで
-        "./signage48_benkyokai.html", // 7/8まで
+        "./signage48_benkyokai.html", // 7/6 17時まで
         "./mvvlogo.html",
        
     ];
