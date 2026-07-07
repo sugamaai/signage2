@@ -4,9 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
         "./index.html",
         "./signage02.html",
         "./signage_youtube02.html",  // 2026年8月リニューアルまで
+        "./signage_youtube04.html",  // クーポンの使い方　リニューアルまで？
+        "./signage_youtube05.html",  // 会員登録方法　リニューアルまで？
         "./signage_202604renewal.html", // 2026年8月リニューアルまで
         "./mvvlogo.html",
-       
+       "./signage49_benkyokai.html", // 2026年8月20日(木)１７時まで
     ];
 
     console.log("====================================");
