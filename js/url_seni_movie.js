@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "./signage_youtube05.html",  // 会員登録方法　リニューアルまで？
         "./signage_202604renewal.html", // 2026年8月リニューアルまで
         "./mvvlogo.html",
-       "./signage49_benkyokai.html", // 2026年8月20日(木)１７時まで
+       "./signage50_benkyokai.html", // 2026年10月27日(木)11時まで
     ];
 
     console.log("====================================");
