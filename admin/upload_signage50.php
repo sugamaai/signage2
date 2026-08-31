@@ -200,6 +200,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'add') {
         }
     }
 }
+// ---- ページを削除する ----
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'delete') {
+    $password = $_POST['password'] ?? '';
+    $targetId = $_POST['target'] ?? '';
+
+    if (!password_verify($password, $config['password_hash'])) {
+        $error = 'パスワードが違います。';
+    } elseif ($targetId === 'signage50' || !isset($targets[$targetId])) {
+        $error = '削除対象のページが見つかりません。';
+    } else {
+        $deleted = $targets[$targetId];
+        $htmlAbsPath = $rootDir . '/' . $deleted['html'];
+        $imageAbsPath = $rootDir . '/' . $deleted['image'];
+
+        $registry = array_values(array_filter($registry, function ($entry) use ($targetId) {
+            return $entry['id'] !== $targetId;
+        }));
+        saveRegistry($registryPath, $registry);
+
+        if (is_file($htmlAbsPath)) {
+            @unlink($htmlAbsPath);
+        }
+        if (is_file($imageAbsPath)) {
+            @unlink($imageAbsPath);
+        }
+        unset($targets[$targetId]);
+
+        $success = htmlspecialchars($deleted['html'], ENT_QUOTES, 'UTF-8') . ' を削除しました。';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -299,6 +329,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'add') {
 
   <p><button type="submit">ページを追加する</button></p>
 </form>
+</fieldset>
+
+<?php
+$deletableTargets = array_filter($targets, function ($id) {
+    return $id !== 'signage50';
+}, ARRAY_FILTER_USE_KEY);
+?>
+<fieldset>
+<legend>ページを削除する</legend>
+<?php if (empty($deletableTargets)): ?>
+  <p class="hint">削除できる追加ページはありません。</p>
+<?php else: ?>
+<form method="post" onsubmit="return confirm('本当に削除しますか？この操作は元に戻せません。');">
+  <input type="hidden" name="form_action" value="delete">
+
+  <label>削除するページ</label>
+  <select name="target">
+    <?php foreach ($deletableTargets as $id => $t): ?>
+      <option value="<?= htmlspecialchars($id, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($t['label'], ENT_QUOTES, 'UTF-8') ?></option>
+    <?php endforeach; ?>
+  </select>
+
+  <label>パスワード</label>
+  <input type="password" name="password" required>
+
+  <p class="hint">ページのHTMLファイルと画像ファイルを削除し、ランダム表示からも除外します。元に戻せません。</p>
+
+  <p><button type="submit">削除する</button></p>
+</form>
+<?php endif; ?>
 </fieldset>
 
 <script>
