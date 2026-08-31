@@ -11,21 +11,34 @@ document.addEventListener("DOMContentLoaded", function () {
        "./signage50_benkyokai.html",
     ];
 
-    // signage50の表示終了日時はアップロード管理画面（admin/upload_signage50.php）から設定される
-    fetch("./img/info/signage50_meta.json", { cache: "no-store" })
-        .then(function (res) { return res.ok ? res.json() : {}; })
-        .catch(function () { return {}; })
-        .then(function (meta) {
-            init(meta && meta.until ? meta.until : null);
-        });
+    // signage50の表示終了日時、および管理画面から追加されたページは
+    // admin/upload_signage50.php が書き出すファイルから読み込む
+    Promise.all([
+        fetch("./img/info/signage50_meta.json", { cache: "no-store" })
+            .then(function (res) { return res.ok ? res.json() : {}; })
+            .catch(function () { return {}; }),
+        fetch("./img/info/signage_pages.json", { cache: "no-store" })
+            .then(function (res) { return res.ok ? res.json() : []; })
+            .catch(function () { return []; }),
+    ]).then(function (results) {
+        var signage50Until = results[0] && results[0].until ? results[0].until : null;
+        var addedPages = Array.isArray(results[1]) ? results[1] : [];
+        init(signage50Until, addedPages);
+    });
 
-    function init(signage50Until) {
+    function init(signage50Until, addedPages) {
         var now = new Date();
         var activeLinks = mylink.filter(function (path) {
             if (path === "./signage50_benkyokai.html" && signage50Until) {
                 return now <= new Date(signage50Until);
             }
             return true;
+        });
+
+        addedPages.forEach(function (page) {
+            if (!page.until || now <= new Date(page.until)) {
+                activeLinks.push("./" + page.html);
+            }
         });
 
         console.log("====================================");
