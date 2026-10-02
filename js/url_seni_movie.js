@@ -75,17 +75,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("タイマー設定:", timeLimit / 1000 + "秒後に自動遷移");
 
-        function cancelAutoRedirect() {
+        function resetAutoRedirect() {
             clearTimeout(timerId);
+            timerId = setTimeout(timerFunc, timeLimit);
 
-            console.log("====================================");
-            console.log("ユーザー操作を検知しました");
-            console.log("自動遷移をキャンセルしました");
-            console.log("操作時のURL:", location.href);
-            console.log("====================================");
+            console.log("ユーザー操作を検知：自動遷移タイマーをリセットしました（" + timeLimit / 1000 + "秒）");
         }
 
-        document.addEventListener("click", cancelAutoRedirect, { once: true });
-        document.addEventListener("touchstart", cancelAutoRedirect, { once: true });
+        document.addEventListener("click", resetAutoRedirect);
+        document.addEventListener("touchstart", resetAutoRedirect);
     }
 });
