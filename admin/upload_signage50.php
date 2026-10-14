@@ -39,22 +39,31 @@ function saveRegistry(string $path, array $data): void
     file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
 }
 
-function formatUntil(?string $until): string
+function formatDt(?string $value): string
 {
-    if (!$until) {
-        return '設定なし（期限なし・常時表示）';
+    $date = $value ? DateTime::createFromFormat('Y-m-d\TH:i', $value) : false;
+    return $date ? $date->format('Y年n月j日 H:i') : (string) $value;
+}
+
+function formatPeriod(?string $from, ?string $until): string
+{
+    if (!$from && !$until) {
+        return '設定なし（常時表示）';
     }
-    $date = DateTime::createFromFormat('Y-m-d\TH:i', $until);
-    return $date ? $date->format('Y年n月j日 H:i') . ' まで' : $until;
+    return ($from ? formatDt($from) . ' から' : '') . ($until ? ' ' . formatDt($until) . ' まで' : '');
 }
 
 $registry = loadRegistry($registryPath);
 
 $signage50Until = null;
+$signage50From = null;
 if (is_file($signage50MetaPath)) {
     $meta = json_decode((string) file_get_contents($signage50MetaPath), true);
     if (is_array($meta) && !empty($meta['until'])) {
         $signage50Until = (string) $meta['until'];
+    }
+    if (is_array($meta) && !empty($meta['from'])) {
+        $signage50From = (string) $meta['from'];
     }
 }
 
@@ -65,6 +74,7 @@ $targets = [
         'html' => 'signage50_benkyokai.html',
         'image' => 'img/info/20261027.png',
         'until' => $signage50Until,
+        'from' => $signage50From,
     ],
 ];
 foreach ($registry as $entry) {
@@ -73,6 +83,7 @@ foreach ($registry as $entry) {
         'html' => $entry['html'],
         'image' => $entry['image'],
         'until' => $entry['until'] ?? null,
+        'from' => $entry['from'] ?? null,
     ];
 }
 
@@ -83,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'replace') {
     $password = $_POST['password'] ?? '';
     $targetId = $_POST['target'] ?? '';
     $untilInput = trim($_POST['until'] ?? '');
+    $fromInput = trim($_POST['from'] ?? '');
 
     if (!password_verify($password, $config['password_hash'])) {
         $error = 'パスワードが違います。';
@@ -94,6 +106,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'replace') {
         $error = 'ファイルサイズが大きすぎます（10MBまで）。';
     } elseif ($untilInput !== '' && DateTime::createFromFormat('Y-m-d\TH:i', $untilInput) === false) {
         $error = '表示終了日時の形式が正しくありません。';
+    } elseif ($fromInput !== '' && DateTime::createFromFormat('Y-m-d\TH:i', $fromInput) === false) {
+        $error = '表示開始日時の形式が正しくありません。';
+    } elseif ($fromInput !== '' && $untilInput !== '' && $fromInput >= $untilInput) {
+        $error = '表示終了日時は表示開始日時より後にしてください。';
     } else {
         $tmpPath = $_FILES['image']['tmp_name'];
         $imageInfo = @getimagesize($tmpPath);
@@ -107,20 +123,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'replace') {
             } else {
                 @chmod($absoluteTargetImage, 0644);
                 $untilValue = $untilInput !== '' ? $untilInput : null;
+                $fromValue = $fromInput !== '' ? $fromInput : null;
 
                 if ($targetId === 'signage50') {
-                    file_put_contents($signage50MetaPath, json_encode(['until' => $untilValue]), LOCK_EX);
+                    file_put_contents($signage50MetaPath, json_encode(['until' => $untilValue, 'from' => $fromValue]), LOCK_EX);
                     $signage50Until = $untilValue;
+                    $signage50From = $fromValue;
                 } else {
                     foreach ($registry as &$entry) {
                         if ($entry['id'] === $targetId) {
                             $entry['until'] = $untilValue;
+                            $entry['from'] = $fromValue;
                         }
                     }
                     unset($entry);
                     saveRegistry($registryPath, $registry);
                 }
                 $targets[$targetId]['until'] = $untilValue;
+                $targets[$targetId]['from'] = $fromValue;
                 $success = htmlspecialchars($targets[$targetId]['label'], ENT_QUOTES, 'UTF-8') . ' の画像を更新しました。';
             }
         }
@@ -133,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'add') {
     $slug = trim($_POST['slug'] ?? '');
     $label = trim($_POST['label'] ?? '');
     $untilInput = trim($_POST['until'] ?? '');
+    $fromInput = trim($_POST['from'] ?? '');
 
     $htmlFilename = 'signage_' . $slug . '.html';
     $htmlAbsPath = $rootDir . '/' . $htmlFilename;
@@ -153,6 +174,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'add') {
         $error = 'ファイルサイズが大きすぎます（10MBまで）。';
     } elseif ($untilInput !== '' && DateTime::createFromFormat('Y-m-d\TH:i', $untilInput) === false) {
         $error = '表示終了日時の形式が正しくありません。';
+    } elseif ($fromInput !== '' && DateTime::createFromFormat('Y-m-d\TH:i', $fromInput) === false) {
+        $error = '表示開始日時の形式が正しくありません。';
+    } elseif ($fromInput !== '' && $untilInput !== '' && $fromInput >= $untilInput) {
+        $error = '表示終了日時は表示開始日時より後にしてください。';
     } else {
         $tmpPath = $_FILES['image']['tmp_name'];
         $imageInfo = @getimagesize($tmpPath);
@@ -179,12 +204,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'add') {
                 file_put_contents($htmlAbsPath, $newHtml);
 
                 $untilValue = $untilInput !== '' ? $untilInput : null;
+                $fromValue = $fromInput !== '' ? $fromInput : null;
                 $registry[] = [
                     'id' => $slug,
                     'html' => $htmlFilename,
                     'image' => $imageRelPath,
                     'alt' => $label,
                     'until' => $untilValue,
+                    'from' => $fromValue,
                 ];
                 saveRegistry($registryPath, $registry);
 
@@ -193,6 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'add') {
                     'html' => $htmlFilename,
                     'image' => $imageRelPath,
                     'until' => $untilValue,
+                    'from' => $fromValue,
                 ];
 
                 $success = htmlspecialchars($htmlFilename, ENT_QUOTES, 'UTF-8') . ' を作成し、ランダム表示に追加しました。';
@@ -265,14 +293,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'delete') {
 
 <h2>現在のページ一覧</h2>
 <table>
-  <tr><th>ページ</th><th>プレビュー</th><th>表示終了日時</th></tr>
+  <tr><th>ページ</th><th>プレビュー</th><th>表示期間</th></tr>
   <?php foreach ($targets as $id => $t): ?>
   <tr>
     <td>
       <a href="../<?= htmlspecialchars($t['html'], ENT_QUOTES, 'UTF-8') ?>" target="_blank"><?= htmlspecialchars($t['html'], ENT_QUOTES, 'UTF-8') ?></a>
     </td>
     <td><img src="../<?= htmlspecialchars($t['image'], ENT_QUOTES, 'UTF-8') ?>?t=<?= time() ?>" alt=""></td>
-    <td><?= htmlspecialchars(formatUntil($t['until']), ENT_QUOTES, 'UTF-8') ?></td>
+    <td><?= htmlspecialchars(formatPeriod($t['from'], $t['until']), ENT_QUOTES, 'UTF-8') ?></td>
   </tr>
   <?php endforeach; ?>
 </table>
@@ -285,7 +313,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'delete') {
   <label>対象ページ</label>
   <select name="target" id="targetSelect" onchange="fillUntil()">
     <?php foreach ($targets as $id => $t): ?>
-      <option value="<?= htmlspecialchars($id, ENT_QUOTES, 'UTF-8') ?>" data-until="<?= htmlspecialchars($t['until'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+      <option value="<?= htmlspecialchars($id, ENT_QUOTES, 'UTF-8') ?>" data-until="<?= htmlspecialchars($t['until'] ?? '', ENT_QUOTES, 'UTF-8') ?>" data-from="<?= htmlspecialchars($t['from'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
         <?= htmlspecialchars($t['label'], ENT_QUOTES, 'UTF-8') ?>
       </option>
     <?php endforeach; ?>
@@ -296,6 +324,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'delete') {
 
   <label>新しい画像（PNG / JPEG）</label>
   <input type="file" name="image" accept="image/png,image/jpeg" required>
+
+  <label>表示開始日時（任意・予約投稿）</label>
+  <input type="datetime-local" name="from" id="fromInput">
+  <p class="hint">設定すると、この日時になるまではランダム表示の対象から除外されます（予約投稿）。空欄のままにすると即時表示されます。</p>
 
   <label>表示終了日時（任意）</label>
   <input type="datetime-local" name="until" id="untilInput">
@@ -322,6 +354,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formAction === 'delete') {
 
   <label>画像（PNG / JPEG）</label>
   <input type="file" name="image" accept="image/png,image/jpeg" required>
+
+  <label>表示開始日時（任意・予約投稿）</label>
+  <input type="datetime-local" name="from">
+  <p class="hint">設定すると、この日時になるまではランダム表示の対象から除外されます。空欄のままにすると即時表示されます。</p>
 
   <label>表示終了日時（任意）</label>
   <input type="datetime-local" name="until">
@@ -366,6 +402,7 @@ function fillUntil() {
   var select = document.getElementById('targetSelect');
   var opt = select.options[select.selectedIndex];
   document.getElementById('untilInput').value = opt.getAttribute('data-until') || '';
+  document.getElementById('fromInput').value = opt.getAttribute('data-from') || '';
 }
 document.addEventListener('DOMContentLoaded', fillUntil);
 </script>

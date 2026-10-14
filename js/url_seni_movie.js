@@ -22,20 +22,23 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(function () { return []; }),
     ]).then(function (results) {
         var signage50Until = results[0] && results[0].until ? results[0].until : null;
+        var signage50From = results[0] && results[0].from ? results[0].from : null;
         var addedPages = Array.isArray(results[1]) ? results[1] : [];
-        init(signage50Until, addedPages);
+        init(signage50Until, signage50From, addedPages);
     });
 
-    function init(signage50Until, addedPages) {
+    function init(signage50Until, signage50From, addedPages) {
         var now = new Date();
         var activeLinks = mylink.filter(function (path) {
-            if (path === "./signage50_benkyokai.html" && signage50Until) {
-                return now <= new Date(signage50Until);
+            if (path === "./signage50_benkyokai.html") {
+                if (signage50From && now < new Date(signage50From)) return false;
+                if (signage50Until && now > new Date(signage50Until)) return false;
             }
             return true;
         });
 
         addedPages.forEach(function (page) {
+            if (page.from && now < new Date(page.from)) return;
             if (!page.until || now <= new Date(page.until)) {
                 activeLinks.push("./" + page.html);
             }
@@ -85,4 +88,4 @@ document.addEventListener("DOMContentLoaded", function () {
         document.addEventListener("click", resetAutoRedirect);
         document.addEventListener("touchstart", resetAutoRedirect);
     }
-});
+});
